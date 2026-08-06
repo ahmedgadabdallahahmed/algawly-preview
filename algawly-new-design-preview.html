@@ -62,26 +62,73 @@
   header.scrolled .inner{padding:11px 0}
   .burger{display:none;width:42px;height:42px;border-radius:12px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.1);color:#fff;cursor:pointer;font-size:19px}
 
-  /* ===== السلايدر ===== */
-  .hero{position:relative;height:100vh;min-height:640px;max-height:900px;overflow:hidden}
+  /* ===== الهيرو ===== */
+  .hero{position:relative;height:100vh;min-height:680px;max-height:920px;overflow:hidden;background:var(--charcoal)}
   .slide{position:absolute;inset:0;opacity:0;transition:opacity 1.1s ease;display:flex;align-items:center}
   .slide.active{opacity:1;z-index:2}
   .slide .bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.08);animation:kenburns 9s ease forwards}
-  .slide.active .bg{animation:kenburns 9s ease forwards}
   @keyframes kenburns{from{transform:scale(1.12)}to{transform:scale(1)}}
-  .slide::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,24,28,.55) 0%,rgba(23,24,28,.35) 40%,rgba(23,24,28,.75) 100%)}
-  .slide .content{position:relative;z-index:3;color:#fff;max-width:640px;padding-top:60px}
+  .slide::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(23,24,28,.64) 0%,rgba(23,24,28,.42) 45%,rgba(23,24,28,.58) 100%),linear-gradient(180deg,rgba(23,24,28,.2) 0%,transparent 30%,rgba(23,24,28,.82) 100%)}
+
+  /* طبقة التأثيرات: توهجات ضوئية + ألواح أكريليك عائمة */
+  .slide .fx{position:absolute;inset:0;z-index:1;pointer-events:none}
+  .fx .orb{position:absolute;border-radius:50%;filter:blur(70px);animation:orbPulse 9s ease-in-out infinite;will-change:transform}
+  .fx .orb.o1{width:440px;height:440px;background:radial-gradient(circle,rgba(201,162,39,.6),transparent 70%);top:-90px;left:-120px}
+  .fx .orb.o2{width:380px;height:380px;background:radial-gradient(circle,rgba(255,255,255,.32),transparent 70%);bottom:-70px;right:-90px;animation-delay:2.4s}
+  .fx .orb.o3{width:300px;height:300px;background:radial-gradient(circle,rgba(46,58,47,.55),transparent 70%);top:42%;right:30%;animation-delay:4.6s}
+  @keyframes orbPulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.14);opacity:.75}}
+  .plate-w{position:absolute;will-change:transform;pointer-events:none}
+  .plate{position:relative;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,rgba(255,255,255,.18),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(5px);box-shadow:0 26px 60px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.4),inset 0 -18px 40px rgba(201,162,39,.08);animation:floaty 7s ease-in-out infinite;transform-style:preserve-3d}
+  .plate span{font-family:var(--font-head);font-weight:700;line-height:1;background:linear-gradient(160deg,#fff 0%,var(--gold-light) 55%,var(--gold) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 8px 16px rgba(201,162,39,.4))}
+  .plate .edge{position:absolute;inset:4px;border:1px dashed rgba(255,255,255,.22);border-radius:inherit;pointer-events:none}
+  .plate.p1{width:150px;height:112px;border-radius:24px;font-size:62px}
+  .plate.p2{width:118px;height:88px;border-radius:20px;font-size:48px;animation-delay:1.3s}
+  .plate.p3{width:92px;height:92px;border-radius:50%;font-size:42px;animation-delay:2.2s}
+  @keyframes floaty{0%,100%{transform:translateY(0) rotate(var(--r,0deg))}50%{transform:translateY(-24px) rotate(calc(var(--r,0deg) + 5deg))}}
+
+  /* ومضات ذهبية متحركة على الكلمة المميزة */
+  .slide h1 em{background:linear-gradient(110deg,var(--gold) 0%,var(--gold-light) 40%,#fff 50%,var(--gold-light) 60%,var(--gold) 100%);background-size:260% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shineMove 5.5s linear infinite;font-style:normal}
+  @keyframes shineMove{0%{background-position:120% 0}100%{background-position:-120% 0}}
+
+  .slide .content{position:relative;z-index:3;color:#fff;max-width:660px;padding-top:60px}
   .slide .tag{display:inline-flex;align-items:center;gap:8px;background:rgba(201,162,39,.18);border:1px solid rgba(201,162,39,.5);color:var(--gold-light);padding:6px 16px;border-radius:999px;font-size:13px;font-weight:600;margin-bottom:18px}
   .slide h1{font-size:clamp(34px,5.5vw,64px);line-height:1.25;font-weight:700;margin-bottom:16px}
-  .slide h1 em{color:var(--gold);font-style:normal}
-  .slide p{font-size:clamp(15px,1.6vw,19px);color:rgba(255,255,255,.88);max-width:520px;margin-bottom:28px}
-  .slide .ctas{display:flex;gap:12px;flex-wrap:wrap}
+  .slide p{font-size:clamp(15px,1.6vw,19px);color:rgba(255,255,255,.88);max-width:520px;margin-bottom:26px}
+  .slide .ctas{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
   .btn-outline-gold{background:transparent;border:1.5px solid var(--gold);color:var(--gold-light);padding:12px 26px;border-radius:999px;font-weight:600;font-size:15px;cursor:pointer;transition:var(--trans)}
   .btn-outline-gold:hover{background:var(--gold);color:var(--charcoal)}
-  .hero .dots{position:absolute;bottom:90px;right:50%;transform:translateX(50%);z-index:5;display:flex;gap:9px}
+  .btn-gold .arr{display:inline-block;transition:transform .3s ease;margin-right:6px}
+  .btn-gold:hover .arr{transform:translateX(-5px)}
+
+  /* شارات الثقة داخل الهيرو */
+  .chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+  .chip{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(8px);padding:8px 15px;border-radius:999px;font-size:13px;font-weight:600;color:#fff;box-shadow:0 8px 20px rgba(0,0,0,.18)}
+  .chip b{color:var(--gold-light)}
+
+  /* دخول متدرج لمحتوى الشريحة */
+  .slide .tag,.slide h1,.slide p,.slide .ctas,.slide .chips{opacity:0}
+  .slide.active .tag{animation:rise .55s .05s cubic-bezier(.22,1,.36,1) forwards}
+  .slide.active h1{animation:rise .65s .18s cubic-bezier(.22,1,.36,1) forwards}
+  .slide.active p{animation:rise .65s .30s cubic-bezier(.22,1,.36,1) forwards}
+  .slide.active .ctas{animation:rise .65s .42s cubic-bezier(.22,1,.36,1) forwards}
+  .slide.active .chips{animation:rise .65s .54s cubic-bezier(.22,1,.36,1) forwards}
+  @keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+
+  /* مؤشر التمرير */
+  .scroll-hint{position:absolute;bottom:24px;right:50%;transform:translateX(50%);z-index:6;display:flex;flex-direction:column;align-items:center;gap:7px;color:rgba(255,255,255,.85);font-size:11.5px;font-weight:600;letter-spacing:1.5px}
+  .scroll-hint .mouse{width:24px;height:38px;border:1.5px solid rgba(255,255,255,.65);border-radius:99px;position:relative}
+  .scroll-hint .mouse::after{content:'';position:absolute;top:7px;right:50%;transform:translateX(50%);width:4px;height:8px;border-radius:99px;background:var(--gold);animation:wheel 1.6s ease-in-out infinite}
+  @keyframes wheel{0%{opacity:0;transform:translate(50%,0)}30%{opacity:1}100%{opacity:0;transform:translate(50%,14px)}}
+
+  /* جزيئات متلألئة */
+  .sparkles{position:absolute;inset:0;z-index:6;pointer-events:none;overflow:hidden}
+  .sparkle{position:absolute;border-radius:50%;background:#fff;box-shadow:0 0 8px 2px rgba(255,255,255,.75);opacity:0;animation:twinkle var(--td,3s) ease-in-out infinite;animation-delay:var(--dl,0s)}
+  @keyframes twinkle{0%,100%{opacity:0;transform:scale(.35)}50%{opacity:.9;transform:scale(1)}}
+
+  .hero .dots{position:absolute;bottom:84px;right:50%;transform:translateX(50%);z-index:5;display:flex;gap:9px}
   .hero .dots button{width:34px;height:5px;border-radius:99px;border:none;background:rgba(255,255,255,.35);cursor:pointer;transition:var(--trans)}
   .hero .dots button.active{background:var(--gold);width:52px}
-  .hero .arrows{position:absolute;bottom:82px;left:20px;z-index:5;display:flex;gap:9px}
+  .hero .arrows{position:absolute;bottom:78px;left:20px;z-index:5;display:flex;gap:9px}
   .hero .arrows button{width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.4);background:rgba(23,24,28,.35);backdrop-filter:blur(6px);color:#fff;font-size:18px;cursor:pointer;transition:var(--trans)}
   .hero .arrows button:hover{background:var(--gold);color:var(--charcoal)}
 
@@ -214,6 +261,8 @@
     .burger{display:flex;align-items:center;justify-content:center}
     .hero{min-height:78vh}
     .hero .arrows{display:none}
+    .fx .plate-w{display:none}
+    .scroll-hint{display:none}
     .section{padding:58px 0}
     .cats{grid-template-columns:repeat(3,1fr);gap:20px}
     .products{grid-template-columns:repeat(2,1fr);gap:13px}
@@ -281,44 +330,83 @@
   </div>
 </header>
 
-<!-- السلايدر -->
+<!-- الهيرو -->
 <section class="hero" id="home">
   <div class="slide active">
     <div class="bg" style="background-image:url('https://cdn.files.salla.network/homepage/229803531/04408b9e-aabc-4dfe-bc43-a8fe55f68cfe.webp')"></div>
+    <div class="fx">
+      <div class="orb o1"></div>
+      <div class="orb o2"></div>
+      <div class="orb o3"></div>
+      <div class="plate-w" data-depth="34" style="top:16%;left:7%"><div class="plate p1" style="--r:-8deg"><span>م</span><i class="edge"></i></div></div>
+      <div class="plate-w" data-depth="20" style="bottom:20%;left:15%"><div class="plate p2" style="--r:7deg"><span>ج</span><i class="edge"></i></div></div>
+      <div class="plate-w" data-depth="42" style="top:40%;left:27%"><div class="plate p3" style="--r:-5deg"><span>أ</span><i class="edge"></i></div></div>
+    </div>
     <div class="container content">
       <span class="tag">✦ صُنع بحب في المملكة</span>
       <h1>أكريليك <em>فاخر</em><br>بتصميم يحكي قصتك</h1>
       <p>أسماء ثلاثية الأبعاد، بكجات مواليد، ستاندات وهدايا — نصنعها لك حسب ذوقك، بأعلى جودة وأدق تفاصيل.</p>
       <div class="ctas">
-        <a href="#bundles" class="btn-gold">تسوق البكجات</a>
+        <a href="#bundles" class="btn-gold">تسوق البكجات <span class="arr">←</span></a>
         <a href="https://wa.me/966530624739?text=مرحبا%20الجولي،%20أبي%20أستفسر%20عن%20طلبية%20مخصصة" target="_blank" class="btn-outline-gold">اطلب تصميمك الخاص</a>
+      </div>
+      <div class="chips">
+        <span class="chip">⭐ <b>4.9</b> تقييم العملاء</span>
+        <span class="chip">+<b>1,200</b> عميل سعيد</span>
+        <span class="chip">🚚 توصيل <b>3-4</b> أيام</span>
       </div>
     </div>
   </div>
   <div class="slide">
     <div class="bg" style="background-image:url('https://cdn.salla.sa/AzEwdE/3497948b-c134-4b33-986d-5b316934a988-330x500-zkr9ctcByGCvmEkrloykZ7u5cACkyvXVeZv55GsA.jpg')"></div>
+    <div class="fx">
+      <div class="orb o1"></div>
+      <div class="orb o2"></div>
+      <div class="plate-w" data-depth="30" style="top:18%;left:10%"><div class="plate p2" style="--r:-6deg"><span>ج</span><i class="edge"></i></div></div>
+      <div class="plate-w" data-depth="24" style="bottom:18%;left:22%"><div class="plate p1" style="--r:9deg"><span>ل</span><i class="edge"></i></div></div>
+      <div class="plate-w" data-depth="40" style="top:45%;left:30%"><div class="plate p3" style="--r:-4deg"><span>ي</span><i class="edge"></i></div></div>
+    </div>
     <div class="container content">
       <span class="tag">✦ الأكثر طلباً</span>
       <h1>بكج أسماء <em>ثري دي</em><br>هدية لا تُنسى</h1>
       <p>اسم مولودك أو من تحب بتصميم ثلاثي الأبعاد يخطف الأنظار — من 199 ر.س.</p>
       <div class="ctas">
-        <a href="#bundles" class="btn-gold">شاهد البكجات</a>
+        <a href="#bundles" class="btn-gold">شاهد البكجات <span class="arr">←</span></a>
         <a href="https://wa.me/966530624739" target="_blank" class="btn-outline-gold">استفسر الآن</a>
+      </div>
+      <div class="chips">
+        <span class="chip">🎁 <b>+500</b> بكج مولود شهرياً</span>
+        <span class="chip">✨ <b>3D</b> بأعلى دقة</span>
+        <span class="chip">💝 تغليف <b>هدية</b> مجاني</span>
       </div>
     </div>
   </div>
   <div class="slide">
     <div class="bg" style="background-image:url('https://cdn.salla.sa/AzEwdE/0568eaea-24fc-4896-bed2-0bb78172a37f-388.75x500-9xh8jM0QdJTuyq7aGEWVsLDjxMdckNYV86H62W0D.jpg')"></div>
+    <div class="fx">
+      <div class="orb o2"></div>
+      <div class="orb o3"></div>
+      <div class="plate-w" data-depth="36" style="top:15%;left:8%"><div class="plate p1" style="--r:10deg"><span>أ</span><i class="edge"></i></div></div>
+      <div class="plate-w" data-depth="22" style="bottom:22%;left:14%"><div class="plate p3" style="--r:-7deg"><span>ك</span><i class="edge"></i></div></div>
+      <div class="plate-w" data-depth="44" style="top:48%;left:28%"><div class="plate p2" style="--r:5deg"><span>ر</span><i class="edge"></i></div></div>
+    </div>
     <div class="container content">
       <span class="tag">✦ للمواليد والمناسبات</span>
       <h1>بكج بإسم <em>المولود</em><br>لحظات تُحفظ للأبد</h1>
       <p>احتفل بأجمل اللحظات بهدايا أكريليك تحمل أسماء وأحرف من اختيارك.</p>
       <div class="ctas">
-        <a href="#bundles" class="btn-gold">اكتشف التصاميم</a>
+        <a href="#bundles" class="btn-gold">اكتشف التصاميم <span class="arr">←</span></a>
         <a href="https://wa.me/966530624739" target="_blank" class="btn-outline-gold">واتساب</a>
+      </div>
+      <div class="chips">
+        <span class="chip">👶 خصم <b>10%</b> على بكجات المواليد</span>
+        <span class="chip">🎀 <b>تخصيص</b> كامل</span>
+        <span class="chip">🕒 تجهيز <b>سريع</b></span>
       </div>
     </div>
   </div>
+  <div class="sparkles" id="heroSparkles"></div>
+  <div class="scroll-hint"><div class="mouse"></div><span>اكتشف المزيد</span></div>
   <div class="dots" id="heroDots"></div>
   <div class="arrows">
     <button onclick="heroGo(-1)">‹</button>
@@ -703,6 +791,36 @@
   }
   function heroGo(d){ go(cur + d); }
   go(0);
+
+  // ===== جزيئات متلألئة في الهيرو =====
+  const spBox = document.getElementById('heroSparkles');
+  if (spBox) {
+    for (let i = 0; i < 26; i++) {
+      const s = document.createElement('i');
+      s.className = 'sparkle';
+      const sz = (2 + Math.random() * 4).toFixed(1);
+      s.style.width = sz + 'px'; s.style.height = sz + 'px';
+      s.style.left = (Math.random() * 100).toFixed(1) + '%';
+      s.style.top = (Math.random() * 100).toFixed(1) + '%';
+      s.style.setProperty('--td', (2.5 + Math.random() * 3.5).toFixed(1) + 's');
+      s.style.setProperty('--dl', (Math.random() * 3.5).toFixed(1) + 's');
+      spBox.appendChild(s);
+    }
+  }
+
+  // ===== باراللاكس مع حركة الماوس (أجهزة الماوس فقط) =====
+  const heroBox = document.querySelector('.hero');
+  if (heroBox && window.matchMedia('(pointer:fine)').matches) {
+    heroBox.addEventListener('mousemove', e => {
+      const r = heroBox.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - .5;
+      const y = (e.clientY - r.top) / r.height - .5;
+      heroBox.querySelectorAll('[data-depth]').forEach(el => {
+        const d = parseFloat(el.dataset.depth) || 20;
+        el.style.transform = 'translate3d(' + (-x * d).toFixed(1) + 'px,' + (-y * d).toFixed(1) + 'px,0)';
+      });
+    });
+  }
 
   // ===== ظهور عند التمرير =====
   const io = new IntersectionObserver(entries => {
